@@ -1,0 +1,8 @@
+{
+  "name": "blihcli",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "repository": "git@github.com:carlendev/blihcli",
+  "author": "Yann Carlen <yann.carlen@epitech.eu>",
+  "license": "MIT"
+}
