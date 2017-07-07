@@ -4,5 +4,12 @@
   "main": "src/app.js",
   "repository": "git@github.com:carlendev/blihcli",
   "author": "Yann Carlen <yann.carlen@epitech.eu>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.7.5"
+  }
 }
