@@ -16,15 +16,10 @@ const buttonDefaultProps = {
     padding: {
         left: 1,
         right: 1
-    },
-    style: {
-        bg: 'blue',
-        focus: { bg: 'red' },
-        hover: { bg: 'red' }
     }
 }
 
-const form = blessed.form({
+const loginForm = blessed.form({
   parent: screen,
   keys: true,
   top: 'center',
@@ -35,39 +30,103 @@ const form = blessed.form({
   content: 'Login'
 })
 
-const formButtons = {
+const loginButtons = {
     submit: {
-        parent: form,
+        parent: loginForm,
         left: 10,
         bottom: 1,
         name: 'submit',
         content: 'Submit',
+        style: {
+            bg: 'blue',
+            focus: { bg: 'red' },
+            hover: { bg: 'red' }
+        }   
     },
     cancel: {
-        parent: form,
+        parent: loginForm,
         left: 20,
         bottom: 1,
         name: 'cancel',
         content: 'Cancel',
+        style: {
+            bg: 'blue',
+            focus: { bg: 'red' },
+            hover: { bg: 'red' }
+        }   
     }
 }
 
-const renderObjects = render(formButtons, buttonDefaultProps, 'Button')
+const loginTexts = {
+    name: {
+        parent: loginForm,
+        value: 'Name:',
+        top: 1,
+        left: 'center',
+        width: '50%',
+        height: '10%',
+        style: { bg: 'gray' }
+    },
+    password: {
+        parent: loginForm,
+        value: 'Password:',
+        top: 4,
+        left: 'center',
+        width: '50%',
+        height: '10%',
+        style: { bg: 'gray' }
+    }
+}
 
-addListener(renderObjects, 'submit', 'press', () => form.submit())
-addListener(renderObjects, 'cancel', 'press', () => form.reset())
+const loginInputs = {
+    name: {
+        parent: loginForm,
+        top: 2,
+        left: 'center',
+        width: '50%',
+        height: '10%',
+        tags: true,
+        mouse: true,
+        keys: true,
+        inputOnFocus: true,
+        name: 'name',
+        content: 'Name',
+        style: { fg: 'white' }
+    },
+    password: {
+        parent: loginForm,
+        top: 5,
+        left: 'center',
+        width: '50%',
+        height: '10%',
+        tags: true,
+        mouse: true,
+        keys: true,
+        inputOnFocus: true,
+        censor: true,
+        name: 'password',
+        content: 'Password',
+        style: { fg: 'white' }
+    }
+}
 
+const renderButtonsLogin = render(loginButtons, buttonDefaultProps, 'Button')
+const renderInputsLogin = render(loginInputs, {}, 'textbox')
+const renderLoginText = render(loginTexts, {}, 'textarea')
 
-form.on('submit', data => {
-  form.setContent('Submitted.')
+addListener(renderButtonsLogin, 'submit', 'press', () => loginForm.submit())
+addListener(renderButtonsLogin, 'cancel', 'press', () => loginForm.reset())
+
+loginForm.on('submit', data => {
+  loginForm.setContent('Submitted.')
   screen.render()
 })
 
-form.on('reset', data => {
-  form.setContent('Canceled.')
+loginForm.on('reset', data => {
+  loginForm.setContent('Canceled.')
   screen.render()
 })
 
-screen.key('q', () => process.exit(0))
+screen.key([ 'q', 'escape' ], () => process.exit(0))
 
 screen.render()
